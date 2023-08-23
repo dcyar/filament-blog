@@ -14,5 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    $posts = \App\Models\Post::with(['photos'])
+        ->published()
+        ->latest()
+        ->get();
+
     return view('welcome');
 });
