@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\PostPageController;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,11 +16,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $posts = \App\Models\Post::with(['photos'])
-        ->published()
-        ->latest()
-        ->get();
-
-    return view('welcome');
-});
+Route::get('/', HomePageController::class)->name('home');
+Route::get('/blog/{post:slug}', PostPageController::class)->name('post');

@@ -14,7 +14,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostResource extends Resource
@@ -48,6 +47,8 @@ class PostResource extends Resource
                                 Forms\Components\Textarea::make('excerpt')
                                     ->columnSpan(2),
                                 Forms\Components\RichEditor::make('content')
+                                    ->fileAttachmentsDisk('public')
+                                    ->fileAttachmentsDirectory('posts')
                                     ->columnSpan(2),
                             ]),
                     ]),
@@ -144,13 +145,6 @@ class PostResource extends Resource
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make(),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array
